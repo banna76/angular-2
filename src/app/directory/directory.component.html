@@ -1,0 +1,24 @@
+<h3>Ninja Listing</h3>
+<form id="filter">
+  <label>Filter ninjas by name:</label>
+  <input type="text" [(ngModel)]="term" [ngModelOptions]="{standalone: true}" />
+</form>
+<ul id="ninja-listing">
+<li *ngFor="let ninja of ninjas | filter:term">
+  <div class="single-ninja">
+    <img [src]="ninja.thumb" style="margin: -12px 10px 0 0; float:left; width:50px;" [hidden]="!ninja.thumb"/>
+    <h3>{{ninja.name}}</h3>
+    <span>{{ninja.rate | currency:'EUR':true}}</span>
+    <div><span [ngStyle]="{background: ninja.belt}"> {{ninja.belt}} belt</span></div>
+    <!-- div (click)="remove($event)" [attr.data-name]="ninja-name">delete</div -->
+  </div>
+</li>
+</ul>
+<form id="add-ninja">
+  <input type="hidden" name="available" value=true>
+  <input type="text" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Name"/><br>
+  <input type="text" [(ngModel)]="belt" [ngModelOptions]="{standalone: true}" placeholder="Belt"/><br>
+  <input type="text" [(ngModel)]="rate" [ngModelOptions]="{standalone: true}" placeholder="Rate"/>
+  <input type="hidden" name="thumb" value="assets/no_avatar.jpg">
+  <button (click)="fbPostData(available,name,belt,rate,thumb)">Add New Ninja</button>
+</form>
